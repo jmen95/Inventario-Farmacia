@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="../plantilla.xhtml">
+            <ui:define name="title">::Agregar productos::</ui:define>
+            <ui:define name="content">
+                <br></br>
+                <h:form id="form" style="margin-left: 4px; margin-right: 4px;" onkeypress="return event.keyCode != 13" enctype="multipart/form-data">      
+                    <p:growl id="mensaje" showDetail="true" sticky="true" /> 
+                    <div class="agregarProducto mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">Crear Producto</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label imput_login">
+                                        <h:outputLabel  value="Código de barras"  styleClass="mdl-textfield__label"/>   
+                                        <h:inputText   required="true" styleClass="mdl-textfield__input" value="#{mbVProductos.producto.proCodigoBarra}"/>
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label imput_login">
+                                        <h:outputLabel  value="Nombre"  styleClass="mdl-textfield__label"/>   
+                                        <h:inputText   required="true" styleClass="mdl-textfield__input" value="#{mbVProductos.producto.proNombre}"/>
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--2-col">
+                                    <h:outputLabel  value="Marca"/>   <br></br>
+                                    <p:selectOneMenu  value="#{mbVProductos.codMarca}"   filter="true" filterMatchMode="startsWith">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                        <f:selectItems value="#{mbVProductos.listaMarca}" var="m" itemLabel="#{m.marNombre}" itemValue="#{m.marCodigo}" />
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="mdl-cell mdl-cell--2-col">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label imput_login">
+                                        <h:outputLabel  value="Valor compra"  styleClass="mdl-textfield__label"/>   
+                                        <h:inputText   required="false" styleClass="mdl-textfield__input" value="#{mbVProductos.producto.proValorCompra}"/>
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--2-col">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label imput_login">
+                                        <h:outputLabel  value="Stock mínimo"  styleClass="mdl-textfield__label"/>   
+                                        <h:inputText   required="true" styleClass="mdl-textfield__input" value="#{mbVProductos.producto.proStockMinimo}"/>
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--2-col">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label imput_login">
+                                        <h:outputLabel  value="Cantidad"  styleClass="mdl-textfield__label"/>   
+                                        <h:inputText   required="true" styleClass="mdl-textfield__input" value="#{mbVProductos.producto.proStockBodega}"/>
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--2-col">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label imput_login">
+                                        <h:outputLabel  value="Ubicación"  styleClass="mdl-textfield__label"/>   
+                                        <h:inputText   required="false" styleClass="mdl-textfield__input" value="#{mbVProductos.producto.proUbicacion}"/>
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <h:outputLabel  value="Grupo"/>   <br></br>
+                                    <p:selectOneMenu  value="#{mbVProductos.codGrupo}"   filter="true" filterMatchMode="startsWith">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                        <f:selectItems value="#{mbVProductos.listaGrupo}" var="g" itemLabel="#{g.gruNombre}" itemValue="#{g.gruCodigo}" />
+                                    </p:selectOneMenu>
+                                </div>
+
+                                <div class="mdl-cell mdl-cell--2-col">
+                                    <h:outputLabel  value="Tipo de medida"/>   <br></br>
+                                    <p:selectOneMenu  value="#{mbVProductos.codTipoDescarga}" style="width:125px">
+                                        <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                        <f:selectItems value="#{mbVProductos.listaTipodescarga}" var="l" itemLabel="#{l.tideNombre}" itemValue="#{l.tideCodigo}" />
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="mdl-cell mdl-cell--2-col">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label imput_login">
+                                        <h:outputLabel  value="Referencia"  styleClass="mdl-textfield__label"/>   
+                                        <h:inputText   required="true" styleClass="mdl-textfield__input" value="#{mbVProductos.producto.proReferencia}"/>
+                                    </div>
+                                </div>
+                                <div class="mdl-cell mdl-cell--2-col">
+                                    <p:commandButton onclick="PF('dlgLotes').show();" value="Lotes" icon="ui-icon-arrow-4-diag"/>
+                                </div>
+                                <div class="mdl-cell mdl-cell--6-col">
+                                    <p:fileUpload value="#{mbVProductos.file}" mode="simple" styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" update="mensaje" sizeLimit="100000"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                </div>
+                                <div class="mdl-cell mdl-cell--2-col">
+                                    <h:outputLabel  value="Estado"/>   <br></br>
+                                    <p:selectOneMenu   value="#{mbVProductos.producto.proEstado}">
+                                        <f:selectItem itemLabel="Activo" itemValue="AC" />
+                                        <f:selectItem itemLabel="Inactivo" itemValue="IN" />
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <p:commandButton value="GUARDAR"  process="@this" ajax="false" icon="ui-icon-disk" styleClass="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="margin-left: 16px;" actionListener="#{mbVProductos.register()}"/>                        
+                        </div>
+                    </div>
+
+                </h:form>
+                <p:dialog widgetVar="dlgLotes" modal="true" header="Lotes" hideEffect="explode" showEffect="explode" resizable="false" width="600">
+                    <p:outputPanel id="detLotes">
+                        <h:form id="form2">      
+                            <p:growl id="mensaje" showDetail="true" sticky="true" />  
+                            <div class="mdl-grid">
+                                <div class="mdl-cell mdl-cell--3-col">
+                                    <h:outputLabel  value="Lote"/>  
+                                    <p:inputText   required="true" value="#{mbVProductos.vencimiento.venLote}" style="width: 100%;"/>
+                                </div>
+
+                                <div class="mdl-cell mdl-cell--2-col">
+                                    <h:outputLabel  value="Cantidad"/>
+                                    <p:inputText   required="true" value="#{mbVProductos.vencimiento.venCantidad}" style="width: 100%;"/>
+                                </div>
+
+                                <div class="mdl-cell mdl-cell--4-col">
+                                    <h:outputLabel  value="Fecha de vencimiento"/>   
+                                    <p:calendar  required="true" value="#{mbVProductos.vencimiento.venFechaVencimiento}"  pattern="dd-MM-yyyy" mask="true"  effect="fold" style="width: 100%;"/>
+                                </div>
+
+                                <div class="mdl-cell mdl-cell--2-col">
+                                    <br/>
+                                    <p:commandButton id="btn_add" value="Agregar" update="lotes mensaje @parent" action="#{mbVProductos.reinit}" >
+                                        <p:collector value="#{mbVProductos.vencimiento}" addTo="#{mbVProductos.listaVencimiento}" unique="true"/>
+                                    </p:commandButton>
+                                </div>
+
+                            </div>
+                            <p:outputPanel id="lotes">
+                                <p:dataTable value="#{mbVProductos.listaVencimiento}" var="item" id="tblLotes" scrollable="true" scrollHeight="100" emptyMessage="No hay lotes ingresados">
+
+                                    <p:column headerText="Lote">
+                                        <h:outputText value="#{item.venLote}" />
+                                    </p:column>
+
+                                    <p:column headerText="Cantidad">
+                                        <h:outputText value="#{item.venCantidad}" />
+                                    </p:column>
+
+                                    <p:column headerText="Fecha de Vencimiento">
+                                        <h:outputText value="#{item.venFechaVencimiento}" />
+                                    </p:column>
+
+                                    <p:column headerText="Accion">
+                                        <p:commandLink value="Remover" update=":form2:lotes" process=":form2:lotes">
+                                            <p:collector value="#{item}" removeFrom="#{mbVProductos.listaVencimiento}" unique="true"/>
+                                        </p:commandLink>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </p:outputPanel>
+                            <label class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" onclick="PF('dlgLotes').hide();" >
+                                Terminar
+                                <i class="material-icons">done</i>
+                            </label>
+                            
+                        </h:form>
+                    </p:outputPanel>
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

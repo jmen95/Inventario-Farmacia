@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/02/2016 02:16:40 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojo.Vencimiento" table="vencimiento" catalog="inventario" optimistic-lock="version">
+        <id name="venCodigo" type="java.lang.Integer">
+            <column name="venCodigo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="producto" class="Pojo.Producto" fetch="select">
+            <column name="venCodigoBarra" length="100" />
+        </many-to-one>
+        <property name="venLote" type="string">
+            <column name="venLote" length="150" />
+        </property>
+        <property name="venFecha" type="timestamp">
+            <column name="venFecha" length="19" not-null="true" />
+        </property>
+        <property name="venFechaVencimiento" type="date">
+            <column name="venFechaVencimiento" length="10" />
+        </property>
+        <property name="venCantidad" type="java.lang.Integer">
+            <column name="venCantidad" />
+        </property>
+    </class>
+</hibernate-mapping>

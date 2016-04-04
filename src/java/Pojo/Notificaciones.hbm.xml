@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/02/2016 02:16:40 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Pojo.Notificaciones" table="notificaciones" catalog="inventario" optimistic-lock="version">
+        <id name="noticodigo" type="java.lang.Integer">
+            <column name="noticodigo" />
+            <generator class="identity" />
+        </id>
+        <property name="notidescripcion" type="string">
+            <column name="notidescripcion" length="200" />
+        </property>
+        <property name="notifecha" type="date">
+            <column name="notifecha" length="10" />
+        </property>
+        <property name="notivisto" type="string">
+            <column name="notivisto" length="1" />
+        </property>
+        <property name="notilink" type="string">
+            <column name="notilink" length="100" />
+        </property>
+        <property name="notiestado" type="string">
+            <column name="notiestado" length="2" />
+        </property>
+    </class>
+</hibernate-mapping>
