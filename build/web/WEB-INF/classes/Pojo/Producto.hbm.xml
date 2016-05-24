@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 9/02/2016 02:16:40 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 16/05/2016 08:25:31 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Pojo.Producto" table="producto" catalog="inventario" optimistic-lock="version">
         <id name="proCodigoBarra" type="string">
@@ -18,7 +18,7 @@
             <column name="proTipoDescarga" />
         </many-to-one>
         <property name="proNombre" type="string">
-            <column name="proNombre" length="100" />
+            <column name="proNombre" length="700" />
         </property>
         <property name="proValorCompra" type="java.lang.Integer">
             <column name="proValorCompra" />

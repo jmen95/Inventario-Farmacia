@@ -200,16 +200,24 @@ public class MbVEgreso implements Serializable{
             this.producto = daoEgreso.getByCodigoBarras(this.session, this.valorCodigoBarras);
 
             if (this.producto != null) {
+                int index1=0,index=0;
+                
                 boolean existe = false;
                 for (Producto next : listaVentaDetalle) {
+                    index1++;
                     if (next.getProCodigoBarra().equals(producto.getProCodigoBarra())) {
                         existe = true;
+                        index=index1;
                     }
                 }
                 if (existe) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "El producto ya fue agregado"));
-                    RequestContext.getCurrentInstance().update("frmRealizarVentas:mensajeGeneral");
-                    return;
+                    if ((listaVentaDetalle.get(index).getProStockBodega() - cantidad) < 0) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La cantidad no debe superar el stock en bodega"));
+                        RequestContext.getCurrentInstance().update("frmRealizarVentas:mensajeGeneral");
+                        return;
+                    }
+                    listaVentaDetalle.get(index).setProStockBodega(listaVentaDetalle.get(index).getProStockBodega()-1);
+                    listaVentaDetalle.get(index).setProStockMaximo(listaVentaDetalle.get(index).getProStockMaximo()+1);
                 } else {
                     if ((producto.getProStockBodega() - cantidad) < 0) {
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "La cantidad no debe superar el stock en bodega"));

@@ -87,13 +87,13 @@ and open the template in the editor.
     color: #4f4f4f;
 }
 .ui-state-hover .ui-icon, .ui-state-focus .ui-icon {
-    background-image: url("/Inventario/faces/resources/imagenes/ui-icons_ededed_256x240.png") !important;
+    background-image: url("../imagenes/ui-icons_ededed_256x240.png") !important;
 }
 .mdl-button--accent>span.ui-icon{
-    background-image: url("/Inventario/faces/resources/imagenes/ui-icons_ededed_256x240.png") !important;
+    background-image: url("../imagenes/ui-icons_ededed_256x240.png") !important;
 }
 .ui-state-default .ui-icon {
-    background-image: url("/Inventario/faces/resources/imagenes/ui-icons_ededed_256x240.png") !important;
+    background-image: url("../imagenes/ui-icons_ededed_256x240.png") !important;
 }
 .mdl-color--blue-grey-900 {
     background-color: #1B7BC8 !important;
@@ -135,7 +135,7 @@ and open the template in the editor.
     text-shadow: 0px 0px 0px rgba(255,255,255,0.7);
 }
 .ui-widget-header .ui-icon {
-    background-image: url("/Inventario/faces/resources/imagenes/ui-icons_ededed_256x240.png") !important;
+    background-image: url("../imagenes/ui-icons_ededed_256x240.png") !important;
 }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
     color: #FFF;

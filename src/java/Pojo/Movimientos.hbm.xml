@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 9/02/2016 02:16:40 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 16/05/2016 08:25:31 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Pojo.Movimientos" table="movimientos" catalog="inventario" optimistic-lock="version">
-        <id name="movCodigo" type="java.lang.Integer">
+        <id name="movCodigo" type="int">
             <column name="movCodigo" />
-            <generator class="identity" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="producto" class="Pojo.Producto" fetch="select">
             <column name="movCodProducto" length="100" />
@@ -19,9 +19,6 @@
         </property>
         <property name="movCantidad" type="string">
             <column name="movCantidad" length="20" />
-        </property>
-        <property name="movFecha" type="timestamp">
-            <column name="movFecha" length="19" />
         </property>
     </class>
 </hibernate-mapping>

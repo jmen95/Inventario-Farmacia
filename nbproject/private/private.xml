@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario/web/resources/js/index.js</file>
-            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario/src/java/Clases/Imagen.java</file>
-            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario/src/java/ManagedBeanView/MbVHome.java</file>
-            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario/web/views/CrearProducto.xhtml</file>
-            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario/src/java/ManagedBeanView/MbVProductos.java</file>
-            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario/web/views/home.xhtml</file>
+            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario-Farmacia/src/java/Pojo/Notificaciones.hbm.xml</file>
+            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario-Farmacia/src/java/hibernate.cfg.xml</file>
+            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario-Farmacia/src/java/hibernate.reveng.xml</file>
         </group>
     </open-files>
 </project-private>

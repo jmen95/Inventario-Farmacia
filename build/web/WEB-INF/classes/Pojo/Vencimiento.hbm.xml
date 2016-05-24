@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 9/02/2016 02:16:40 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 16/05/2016 08:25:31 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="Pojo.Vencimiento" table="vencimiento" catalog="inventario" optimistic-lock="version">
         <id name="venCodigo" type="java.lang.Integer">
@@ -22,6 +22,12 @@
         </property>
         <property name="venCantidad" type="java.lang.Integer">
             <column name="venCantidad" />
+        </property>
+        <property name="venValorVenta" type="string">
+            <column name="venValorVenta" length="11" />
+        </property>
+        <property name="venValorCompra" type="string">
+            <column name="venValorCompra" length="11" />
         </property>
     </class>
 </hibernate-mapping>

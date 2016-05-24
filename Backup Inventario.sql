@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v9.63 
-MySQL - 5.5.32 : Database - inventario
+MySQL - 5.5.5-10.1.9-MariaDB : Database - inventariofarmacia
 *********************************************************************
 */
 
@@ -12,9 +12,9 @@ MySQL - 5.5.32 : Database - inventario
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-USE `inventario`;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`inventario` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`inventariofarmacia` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
+USE `inventariofarmacia`;
 
 /*Table structure for table `auditoria` */
 
@@ -33,11 +33,7 @@ CREATE TABLE `auditoria` (
 
 /*Data for the table `auditoria` */
 
-LOCK TABLES `auditoria` WRITE;
-
 insert  into `auditoria`(`Codigo`,`Fecha`,`Hora`,`Accion`,`Usuario`) values (1,'2014-03-17',NULL,NULL,NULL),(2,'2014-03-17',NULL,NULL,NULL),(3,'2014-03-17','07:58:54',NULL,NULL),(4,'2014-03-17','08:00:24','Insertar',NULL),(5,'2014-03-20','07:50:25','Insertar',NULL),(6,'2014-03-23','21:49:37','Insertar',NULL),(16,'2015-11-22','16:39:39','Insertar',NULL);
-
-UNLOCK TABLES;
 
 /*Table structure for table `grupo` */
 
@@ -53,11 +49,23 @@ CREATE TABLE `grupo` (
 
 /*Data for the table `grupo` */
 
-LOCK TABLES `grupo` WRITE;
-
 insert  into `grupo`(`gruCodigo`,`gruNombre`,`gruDescripcion`,`gruEstado`) values (1,'Materiales de construcción',NULL,'AC'),(2,'Pinturas',NULL,'AC'),(3,'Herramientas',NULL,'AC'),(4,'Sanitario',NULL,'AC'),(5,'Eléctricos',NULL,'AC'),(6,'Pegantes',NULL,'AC'),(7,'Tornillería',NULL,'AC');
 
-UNLOCK TABLES;
+/*Table structure for table `lotes` */
+
+DROP TABLE IF EXISTS `lotes`;
+
+CREATE TABLE `lotes` (
+  `lotid` int(11) NOT NULL,
+  `lotfechavenc` date DEFAULT NULL,
+  `lotcantidad` int(11) DEFAULT NULL,
+  `lotpiva` double DEFAULT NULL,
+  `lotiva` double DEFAULT NULL,
+  `lotcoba` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`lotid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `lotes` */
 
 /*Table structure for table `marca` */
 
@@ -73,36 +81,24 @@ CREATE TABLE `marca` (
 
 /*Data for the table `marca` */
 
-LOCK TABLES `marca` WRITE;
-
 insert  into `marca`(`marCodigo`,`marNombre`,`marDescripcion`,`marEstado`) values (1,'Genfar',NULL,'AC'),(2,'JGB',NULL,'AC');
 
-UNLOCK TABLES;
+/*Table structure for table `notificaciones` */
 
-/*Table structure for table `movimientos` */
+DROP TABLE IF EXISTS `notificaciones`;
 
-DROP TABLE IF EXISTS `movimientos`;
-
-CREATE TABLE `movimientos` (
-  `movCodigo` int(11) NOT NULL,
-  `movCodUser` int(11) DEFAULT NULL,
-  `movCodProducto` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `movAccion` varchar(20) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `movCantidad` varchar(20) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  PRIMARY KEY (`movCodigo`),
-  KEY `movCodProducto` (`movCodProducto`),
-  KEY `movCodUser` (`movCodUser`),
-  CONSTRAINT `movimientos_ibfk_1` FOREIGN KEY (`movCodProducto`) REFERENCES `producto` (`proCodigoBarra`),
-  CONSTRAINT `movimientos_ibfk_2` FOREIGN KEY (`movCodUser`) REFERENCES `users` (`userid`)
+CREATE TABLE `notificaciones` (
+  `noticodigo` int(11) NOT NULL AUTO_INCREMENT,
+  `notidescripcion` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `notifecha` date DEFAULT NULL,
+  `notivisto` varchar(1) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `notilink` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `notiestado` varchar(2) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `noticoba` varchar(100) COLLATE utf8_spanish2_ci DEFAULT NULL COMMENT 'Codigo de barras',
+  PRIMARY KEY (`noticodigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
-/*Data for the table `movimientos` */
-
-LOCK TABLES `movimientos` WRITE;
-
-insert  into `movimientos`(`movCodigo`,`movCodUser`,`movCodProducto`,`movAccion`,`movCantidad`) values (0,NULL,'0804541','Agregado','2');
-
-UNLOCK TABLES;
+/*Data for the table `notificaciones` */
 
 /*Table structure for table `paginas` */
 
@@ -119,11 +115,7 @@ CREATE TABLE `paginas` (
 
 /*Data for the table `paginas` */
 
-LOCK TABLES `paginas` WRITE;
-
 insert  into `paginas`(`pagid`,`pagname`,`pagurl`,`pagicono`,`pagestado`) values (1,'PAGINA 1','URL1','ICONO1','A'),(2,'PAGINA 2','URL2','ICONO2','A');
-
-UNLOCK TABLES;
 
 /*Table structure for table `permisos` */
 
@@ -142,10 +134,6 @@ CREATE TABLE `permisos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 /*Data for the table `permisos` */
-
-LOCK TABLES `permisos` WRITE;
-
-UNLOCK TABLES;
 
 /*Table structure for table `producto` */
 
@@ -180,11 +168,7 @@ CREATE TABLE `producto` (
 
 /*Data for the table `producto` */
 
-LOCK TABLES `producto` WRITE;
-
 insert  into `producto`(`proCodigoBarra`,`proNombre`,`proMarCodigo`,`proValorCompra`,`proStockMaximo`,`proStockMinimo`,`proStockBodega`,`proGruCodigo`,`proEstado`,`proFechaIngreso`,`proUbicacion`,`proImagen`,`proFechaVencimiento`,`proTipoDescarga`,`proReferencia`,`proLote`,`proIdUsuario`) values ('0804541','h',1,23,NULL,2,2,1,'AC','2015-11-22 16:39:39','2',NULL,'2015-04-16',2,'RF-54563','7898421855132155',NULL),('1','Caja',2,450,10,20,4,2,'AC','2014-03-17 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('2','Vinilo',2,470,10,20,5,2,'AC','2014-03-09 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('3','Vinilo',2,480,10,20,5,2,'AC','2014-03-09 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('4','Vinilo',2,450,10,25,5,2,'AC','2014-03-12 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('5','Vinilo',2,450,10,20,5,2,'AC','2014-03-10 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('6','Vinilo',2,450,10,20,5,2,'AC','2014-03-10 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('7','Cemento',1,450,10,20,5,1,'AC','2014-03-17 00:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('8','df',1,12,12,12,12,2,'AC','2015-11-22 12:38:18','2','',NULL,1,NULL,NULL,NULL);
-
-UNLOCK TABLES;
 
 /*Table structure for table `role` */
 
@@ -200,11 +184,7 @@ CREATE TABLE `role` (
 
 /*Data for the table `role` */
 
-LOCK TABLES `role` WRITE;
-
 insert  into `role`(`rolid`,`rolname`,`roldesc`,`rolestado`) values (1,'ADMINISTRADOR','ADMINISTRADOR DEL SISTEMA','AC'),(2,'AUXILIAR','AUXILIAR DE CONTABILIDAD','AC');
-
-UNLOCK TABLES;
 
 /*Table structure for table `roleusr` */
 
@@ -223,11 +203,7 @@ CREATE TABLE `roleusr` (
 
 /*Data for the table `roleusr` */
 
-LOCK TABLES `roleusr` WRITE;
-
 insert  into `roleusr`(`ruid`,`ruuserid`,`ruroleid`) values (17,19,1),(18,19,2);
-
-UNLOCK TABLES;
 
 /*Table structure for table `tipodescarga` */
 
@@ -243,11 +219,7 @@ CREATE TABLE `tipodescarga` (
 
 /*Data for the table `tipodescarga` */
 
-LOCK TABLES `tipodescarga` WRITE;
-
 insert  into `tipodescarga`(`tideCodigo`,`tideNombre`,`tideDescripcion`,`tideEstado`) values (1,'Unidad',NULL,'AC'),(2,'Gramos',NULL,'AC'),(3,'Mililitros',NULL,'AC');
-
-UNLOCK TABLES;
 
 /*Table structure for table `users` */
 
@@ -270,37 +242,42 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-LOCK TABLES `users` WRITE;
-
 insert  into `users`(`username`,`userpass`,`userdoc`,`userid`,`userusu`,`usertele`,`userdir`,`usercorreo`,`userestado`) values ('JESÚS MENDOZA','3c2a6eb64cc629de76c419308830c53bbe63b874f6a526f7cd784182b33a2f5f3daaab47b5bde5868b82e4dd3b521d147a7542292b689acdf60122b97e99523f','1042450864',19,'JMEN','3002119842','Calle 70 # 2-19','jmen95@misena.edu.co','AC');
 
-UNLOCK TABLES;
+/*Table structure for table `venta` */
 
-CREATE TABLE Venta
-(
-ventId INT AUTO_INCREMENT NOT NULL,
-ventCostoTotal INT NOT NULL,
-venFechaRegistro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-PRIMARY KEY (ventId)
-);
-CREATE TABLE VentaDetalle
-(
-vedeId INT AUTO_INCREMENT NOT NULL,
-vedeIdVenta INT NOT NULL,
-vedeCodigoBarrasProducto VARCHAR(100)  COLLATE utf8_spanish2_ci NOT NULL,
-vedeNombreProducto VARCHAR(700) NOT NULL,
-vedePrecioVentaUnitarioProducto INT NOT NULL,
-vedeCantidad INT NOT NULL,
-vedeTotalPrecioVenta INT NOT NULL,
-vedeDescuentoint INT,
+DROP TABLE IF EXISTS `venta`;
 
-PRIMARY KEY (vedeId)
-) ENGINE=INNODB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;; 
+CREATE TABLE `venta` (
+  `ventId` int(11) NOT NULL AUTO_INCREMENT,
+  `ventCostoTotal` int(11) NOT NULL,
+  `venFechaRegistro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ventId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE ventadetalle ADD FOREIGN KEY (vedeIdVenta) REFERENCES venta(ventId)
-ON UPDATE CASCADE ON DELETE CASCADE;
-ALTER TABLE ventadetalle ADD FOREIGN KEY (vedeCodigoBarrasProducto) REFERENCES producto(proCodigoBarra)
-ON UPDATE CASCADE ON DELETE CASCADE;
+/*Data for the table `venta` */
+
+/*Table structure for table `ventadetalle` */
+
+DROP TABLE IF EXISTS `ventadetalle`;
+
+CREATE TABLE `ventadetalle` (
+  `vedeId` int(11) NOT NULL AUTO_INCREMENT,
+  `vedeIdVenta` int(11) NOT NULL,
+  `vedeCodigoBarrasProducto` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
+  `vedeNombreProducto` varchar(700) COLLATE utf8_spanish2_ci NOT NULL,
+  `vedePrecioVentaUnitarioProducto` int(11) NOT NULL,
+  `vedeCantidad` int(11) NOT NULL,
+  `vedeTotalPrecioVenta` int(11) NOT NULL,
+  `vedeDescuentoint` int(11) DEFAULT NULL,
+  PRIMARY KEY (`vedeId`),
+  KEY `vedeIdVenta` (`vedeIdVenta`),
+  KEY `vedeCodigoBarrasProducto` (`vedeCodigoBarrasProducto`),
+  CONSTRAINT `ventadetalle_ibfk_1` FOREIGN KEY (`vedeIdVenta`) REFERENCES `venta` (`ventId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ventadetalle_ibfk_2` FOREIGN KEY (`vedeCodigoBarrasProducto`) REFERENCES `producto` (`proCodigoBarra`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+/*Data for the table `ventadetalle` */
 
 /* Trigger structure for table `producto` */
 
@@ -339,142 +316,6 @@ DELIMITER $$
     END */$$
 
 
-DELIMITER ;
-
-/* Procedure structure for procedure `cliente` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `cliente` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `cliente`(in cod int, in nom varchar(100), in dir varchar(100),in tel int)
-BEGIN
-	IF EXISTS(SELECT * FROM cliente WHERE cliCodigo=cod) THEN
-	UPDATE  cliente SET cliNombre=nom,cliDireccion=dir,cliTelefono=tel WHERE cliCodigo =cod;
-	SELECT "Se actualizado satisfactoriamente";
-	ELSE
-	INSERT INTO cliente VALUES(cod,nom,dir,tel);
-	SELECT "Guardado satisfactoriamente";
-	END IF;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `consul` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `consul` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `consul`(in cod int,in nom varchar(100))
-BEGIN
-	SELECT * FROM producto WHERE proCodigo=cod OR proNombre=nom;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `factura` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `factura` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `factura`(in cod int, in fi date,IN fl DATE,in codCli int, in codUsu int, in t int,IN codPro INT, IN cant INT,IN st INT)
-BEGIN
-		IF EXISTS(SELECT * FROM factura WHERE facCodigo=cod) THEN
-			UPDATE  factura SET facTotalFactura=t WHERE facCodigo =cod;
-		ELSE
-			INSERT INTO factura VALUES(NULL,fi,fl,codCli,codUsu,t);
-		END IF;
-		CALL venta(cod,codPro,cant,st);
-	
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `grupo` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `grupo` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `grupo`(IN nom VARCHAR(100))
-BEGIN
-	SELECT p.proCodigo AS Codigo,p.proFecha AS Fecha,p.proNombre AS Nombre,g.gruNombre AS Grupo,m.marNombre AS Marca,p.proStockMaximo AS Stock_Maximo,p.proStockMinimo AS Stock_Minimo, p.proStockBodega AS Stock_Bodega, p.proValorCompra AS Valor_Compra, p.proValorVenta AS Valor_Venta FROM producto p,marca m,grupo g WHERE p.proGruCodigo=g.gruCodigo AND p.proMarCodigo=m.marCodigo AND p.proEstado='Activo' AND g.gruNombre =nom;
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `Guardar` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `Guardar` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `Guardar`(in Codigo int,IN Nombre VARCHAR(100),IN MarCodigo INT,IN ValorCompra INT,IN ValorVenta INT,IN StockMaximo INT,IN StockMinimo INT,IN StockBodega INT ,IN GruCodigo INT,IN Estado varchar(100),IN Fecha DATE)
-begin
-IF exists(select * FROM producto where proCodigo=Codigo) then
-update  producto set proCodigo=Codigo,proNombre=Nombre,proMarCodigo=MarCodigo,proValorCompra=ValorCompra,proValorVenta=ValorVenta,proStockMaximo=StockMaximo,proStockMinimo=StockMinimo,proStockBodega=StockBodega,proGruCodigo=GruCodigo,proEstado=Estado,proFecha=Fecha WHERE proCodigo =Codigo;
-select "Se actualizado satisfactoriamente";
-else
-insert into producto values(Codigo,Nombre,MarCodigo,ValorCompra,ValorVenta,StockMaximo,StockMinimo,StockBodega,GruCodigo,Estado,Fecha);
-select "Guardado satisfactoriamente";
-end if;
-end */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `insertarGrupo` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `insertarGrupo` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `insertarGrupo`(IN nom VARCHAR(200))
-BEGIN
-IF EXISTS(SELECT* FROM grupo WHERE gruNombre=nom) THEN
-	SELECT "Grupo existe";
-ELSE
-	INSERT INTO grupo VALUES(NULL,nom);
-END IF;
-END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `insertarMarca` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `insertarMarca` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `insertarMarca`(in nom varchar(200))
-begin
-if exists(select* from marca where marNombre=nom) then
-	select "Marca existe";
-else
-	insert into marca values(null,nom);
-end If;
-
-end */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `nombre` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `nombre` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `nombre`(in nom varchar(100))
-BEGIN
-	Select p.proCodigo as Codigo,p.proFecha as Fecha,p.proNombre as Nombre,g.gruNombre as Grupo,m.marNombre as Marca,p.proStockMaximo as Stock_Maximo,p.proStockMinimo as Stock_Minimo, p.proStockBodega as Stock_Bodega, p.proValorCompra as Valor_Compra, p.proValorVenta as Valor_Venta from producto p,marca m,grupo g where p.proGruCodigo=g.gruCodigo and p.proMarCodigo=m.marCodigo and p.proEstado='Activo' and p.proNombre like CONCAT('%',nom,'%');
-    END */$$
-DELIMITER ;
-
-/* Procedure structure for procedure `venta` */
-
-/*!50003 DROP PROCEDURE IF EXISTS  `venta` */;
-
-DELIMITER $$
-
-/*!50003 CREATE DEFINER=`root`@`127.0.0.1` PROCEDURE `venta`(IN cod INT, IN codPro INT, IN cant INT,IN t INT)
-BEGIN
-	INSERT INTO venta VALUES(NULL,cod,codPro,cant,t);
-	update producto set proStockBodega=proStockBodega-cant where proCodigo=codPro;
-    END */$$
 DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
