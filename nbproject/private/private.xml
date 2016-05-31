@@ -3,9 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario-Farmacia/src/java/Pojo/Notificaciones.hbm.xml</file>
-            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario-Farmacia/src/java/hibernate.cfg.xml</file>
-            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario-Farmacia/src/java/hibernate.reveng.xml</file>
+            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario-Farmacia/src/java/HibernateUtil/HibernateUtil.java</file>
+            <file>file:/C:/Users/XILENE/Documents/NetBeansProjects/Inventario-Farmacia/src/java/ManagedBeanView/MbVProductos.java</file>
         </group>
     </open-files>
 </project-private>
